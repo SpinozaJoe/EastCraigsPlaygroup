@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="box">
+        <div class="col-lg-12">
+            <hr>
+            <h2 class="intro-text text-center">
+                Playgroup
+                <strong>blog</strong>
+            </h2>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div data-ng-repeat="blog in blogCtrl.blogData | orderBy:'-date'">
+    <div class="row" data-ng-show="blogCtrl.blogIsVisible({{$index}})">
+        <div class="box">
+            <div class="col-lg-6">
+                <img class="img-responsive img-border img-full" data-ng-src="img/{{blog.image}}" alt="">
+            </div>
+            <div class="col-lg-6 text-center">
+                <h2>
+                    {{blog.title}}
+                    <br>
+                    <small>{{blog.date | date:'dd/MM/yyyy'}}</small>
+                </h2>
+                <div data-ng-repeat="blogLine in blog.mainText">
+                    <p style="text-align:left">{{blogLine}}</p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 text-center">
+    <ul class="pager">
+        <li class="previous">
+            <a href="" data-ng-click="blogCtrl.selectNextPage()" data-ng-show="blogCtrl.moreBlogsAvailable()">&larr; Older</a>
+        </li>
+        <li class="next">
+            <a href="" data-ng-click="blogCtrl.selectPreviousPage()" data-ng-show="blogCtrl.startIndex > 0">Newer &rarr;</a>
+        </li>
+    </ul>
+</div>
