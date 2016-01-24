@@ -27,6 +27,12 @@
                 controller: 'aboutController'
             })
 
+            // route for the team page
+            .when('/team', {
+                templateUrl: 'pages/team.html',
+                controller: 'teamController'
+            })
+
             // route for the blog page
             .when('/blog', {
                 templateUrl: 'pages/blog.html',
@@ -39,7 +45,15 @@
                 templateUrl: 'pages/contact.html',
                 controller: 'contactController',
                 controllerAs: 'contact'
+            })
+
+            // route for the lottery page
+            .when('/lottery', {
+                templateUrl: 'pages/lottery.html',
+                controller: 'lotteryController',
+                controllerAs: 'lottery'
             });
+
     });
 
     // create the controller and inject Angular's $scope
@@ -57,7 +71,7 @@
 
                 // Start the carousel after view loaded.
                 $('.carousel').carousel({
-                    interval: 5000 //changes the speed
+                    interval: 10000 //changes the speed
                 }).on('click', '.carousel-control', handle_nav);
             }, 1000);
         });
@@ -93,12 +107,15 @@
     app.controller('aboutController', function ($scope) {
     });
 
+    app.controller('teamController', function ($scope) {
+    });
+
     app.controller('blogController', function ($scope, $http) {
         var blogData = [];
 
         this.blogData = blogData;
         this.startIndex = 0;
-        this.numBlogsPerPage = 2;
+        this.numBlogsPerPage = 5;
 
         this.blogIsVisible = function (blogIndex) {
             return (blogIndex < this.startIndex + this.numBlogsPerPage &&
@@ -127,7 +144,7 @@
            });
     });
 
-    app.controller('contactController', function ()
+    app.controller('contactController', function ($scope, $http)
     {
         var contact = {
             childName: '',
@@ -139,13 +156,123 @@
             mobilePhone: '',
             comments: ''
         };
+        var hasSubmitted = false;
         
         this.contact = contact;
+        this.hasSubmitted = hasSubmitted;
+        this.scope = $scope;
+
+        function getContactText(prefix, contactText) {
+            var result = prefix;
+
+            if (contactText == undefined) {
+                result += "Not supplied\n";
+            } else {
+                result += contactText + "\n";
+            }
+
+            return result;
+        }
+
+        function emailSuccess() {
+            $(document).ajaxStop(function () {
+                $.unblockUI();
+            });
+
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                },
+                message: 'Email sent successfully'
+            });
+
+            setTimeout($.unblockUI, 2000);
+        }
+
+        function emailFailure(errorMessage) {
+            $(document).ajaxStop(function () {
+                $.unblockUI();
+            });
+
+            $('#alertBoxMsg').text("Email failed to send with error message: " + errorMessage);
+            $.blockUI({ message: $('#alertBox'), css: { width: '275px' } });
+        }
+
+        this.hideAlertBox = function () {
+            $.unblockUI();
+        }
+
+        this.showContactForm = function () {
+            $(document.body).animate({
+                'scrollTop': $('#contactFormBox').offset().top
+            }, 1000);
+        }
+
+        this.contactDetailsSupplied = function () {
+            return $('#email').val() != '' ||
+                   $('#phone').val() != '' ||
+                   $('#mobile').val() != '';
+        }
 
         this.submit = function ()
         {
-            alert('Eventually this will do something for ' + this.childName);
+            var bodyText = "A new child placement request has been submitted through the East Craigs Playgroup website with the following details:\n\n";
+            var date = new Date(this.childBirthDate);
+
+            this.hasSubmitted = true;
+
+            if (!this.scope.contactForm.$valid || !this.contactDetailsSupplied())
+            {
+                $('#alertBoxMsg').text("Please enter correct details into any fields highlighted in red.");
+                $.blockUI({ message: $('#alertBox'), css: { width: '275px' } });
+                return;
+            }
+
+            bodyText += getContactText("Child's name: ", this.childName);
+            bodyText += getContactText("Child's birth date: ", date.toLocaleString());
+            bodyText += getContactText("Parent's Name: ", this.parentName);
+            bodyText += getContactText("Address: ", this.address);
+            bodyText += getContactText("Email address: ", this.email);
+            bodyText += getContactText("Home phone: ", this.homePhone);
+            bodyText += getContactText("Mobile phone: ", this.mobilePhone);
+            bodyText += getContactText("Comments: ", this.comments);
+
+            $http.post("http://daveltest.azurewebsites.net/api/email",
+//            $http.post("http://localhost/WebService/WebsiteService/api/email",
+                {
+                    "customerId": "1",
+                    "applicationName": "EmailApp",
+                    "subject": "Child placement request for " + this.childName,
+                    "body": bodyText
+                }).success(function (data, status, headers, config) {
+                    emailSuccess();
+                }).error(function (data, status, headers, config) {
+                    emailFailure(data);
+                });
+
+            // Block the page out until the email has been successful or failed
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                },
+                message: 'Please wait. Sending email...'
+            });
         }
+    });
+
+    app.controller('lotteryController', function ($scope) {
     });
 
     app.directive('pageHeader', function () {

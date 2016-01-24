@@ -58,12 +58,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\afas_rgb.jpg" />
     <Content Include="img\blog\SDC12161.JPG" />
     <Content Include="img\blog\SDC12171.JPG" />
     <Content Include="img\blog\SDC12204.JPG" />
     <Content Include="img\blog\SDC12205.JPG" />
+    <Content Include="img\blog\tooty_footy.png" />
     <Content Include="img\carousel_image2.jpg" />
     <Content Include="img\carousel_image3.jpg" />
+    <Content Include="img\FB-FindUsonFacebook-online-144.png" />
+    <Content Include="img\hi_big_e_lrg_blue-2.jpg" />
+    <Content Include="img\hi_big_e_min_blue.jpg" />
     <Content Include="img\playgroup_logo.png" />
     <Content Include="img\Readme.txt" />
     <Content Include="pages\about.html" />
@@ -88,11 +93,17 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="pages\home.html" />
+    <Content Include="pages\lottery.html" />
+    <Content Include="pages\team.html" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <None Include="Scripts\jquery-1.7-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.js" />
+    <Content Include="Scripts\jquery-1.7.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="templates\page-footer.html" />
     <Content Include="templates\page-header.html" />
     <Content Include="Web.config" />
