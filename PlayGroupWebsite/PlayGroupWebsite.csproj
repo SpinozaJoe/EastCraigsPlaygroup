@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\afas_rgb.jpg" />
+    <Content Include="img\alison_ranken.jpg" />
+    <Content Include="img\alison_summers.png" />
     <Content Include="img\blog\SDC12161.JPG" />
     <Content Include="img\blog\SDC12171.JPG" />
     <Content Include="img\blog\SDC12204.JPG" />
@@ -66,9 +68,13 @@
     <Content Include="img\blog\tooty_footy.png" />
     <Content Include="img\carousel_image2.jpg" />
     <Content Include="img\carousel_image3.jpg" />
+    <Content Include="img\cormorant 6.jpg" />
     <Content Include="img\FB-FindUsonFacebook-online-144.png" />
+    <Content Include="img\FB-FindUsonFacebook-online-58.png" />
+    <Content Include="img\FB-FindUsonFacebook-online-72.png" />
     <Content Include="img\hi_big_e_lrg_blue-2.jpg" />
     <Content Include="img\hi_big_e_min_blue.jpg" />
+    <Content Include="img\melanie_dickerson.png" />
     <Content Include="img\playgroup_logo.png" />
     <Content Include="img\Readme.txt" />
     <Content Include="pages\about.html" />

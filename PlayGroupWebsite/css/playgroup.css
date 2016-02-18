@@ -15,7 +15,16 @@ body {
 
 body {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+    background: #87B1DC;
+    background: -moz-linear-gradient(#87B1DC, #0b304a);
+    background: -webkit-linear-gradient(#87B1DC, #0B2E46);
+    background: -o-linear-gradient(#87B1DC, #0B2E46);
+    background: -ms-linear-gradient(#87B1DC, #0B2E46);/*For IE10*/
     background: linear-gradient(#87B1DC, #0B2E46);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#87B1DC', endColorstr='#0B2E46');/*For IE7-8-9*/ 
+    height: 1%;/*For IE7*/ 
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -156,6 +165,11 @@ footer p {
   padding: 10px 0;
 }
 
+.row-margin {
+  margin-top: 30px;
+  margin-bottom: 30px
+}
+
 @media screen and (min-width:768px) {
     .brand {
         display: inherit;
@@ -211,7 +225,7 @@ footer p {
     }
 
     .nav>li>a {
-        padding: 35px;
+        padding: 25px;
     }
 
     .navbar-nav>li>a {
@@ -223,7 +237,7 @@ footer p {
         float: none;
         margin: 0 auto;
         table-layout: fixed;
-        font-size: 1.25em;
+        font-size: 1.15em;
     }
 }
 
