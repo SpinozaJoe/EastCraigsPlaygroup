@@ -4,6 +4,23 @@
 {
     var app = angular.module('nurseryApp', ['ngRoute']);
 
+    app.run(function ($rootScope) {
+        $rootScope.setFullPage = function () {
+            $('#mainview').removeClass("container");
+            $('#mainview').addClass("fill");
+            $('#headerRow').slideUp();
+            $('#navRow').removeClass("navbar");
+            $('#navRow').addClass("navbarSlim");
+        };
+        $rootScope.setDefaultPage = function () {
+            $('#mainview').removeClass("fill");
+            $('#mainview').addClass("container");
+            $('#headerRow').slideDown();
+            $('#navRow').addClass("navbar");
+            $('#navRow').removeClass("navbarSlim");
+        };
+    });
+
     app.controller('AppController', function ()
     {
         var now = new Date(Date.now());
@@ -58,6 +75,10 @@
 
     // create the controller and inject Angular's $scope
     app.controller('mainController', function ($scope, $timeout) {
+        $scope.initialize = function () {
+            $scope.setDefaultPage();
+        }
+
         var handle_nav = function (e) {
             e.preventDefault();
             var nav = $(this);
@@ -105,9 +126,15 @@
     });
 
     app.controller('aboutController', function ($scope) {
+        $scope.initialize = function () {
+            $scope.setDefaultPage();
+        }
     });
 
     app.controller('teamController', function ($scope) {
+        $scope.initialize = function () {
+            $scope.setDefaultPage();
+        }
     });
 
     app.controller('blogController', function ($scope, $http) {
@@ -116,6 +143,10 @@
         this.blogData = blogData;
         this.startIndex = 0;
         this.numBlogsPerPage = 5;
+
+        $scope.initialize = function () {
+            $scope.setFullPage();
+        }
 
         this.blogIsVisible = function (blogIndex) {
             return (blogIndex < this.startIndex + this.numBlogsPerPage &&
@@ -161,6 +192,10 @@
         this.contact = contact;
         this.hasSubmitted = hasSubmitted;
         this.scope = $scope;
+
+        $scope.initialize = function () {
+            $scope.setDefaultPage();
+        }
 
         function getContactText(prefix, contactText) {
             var result = prefix;
@@ -273,6 +308,9 @@
     });
 
     app.controller('lotteryController', function ($scope) {
+        $scope.initialize = function () {
+            $scope.setDefaultPage();
+        }
     });
 
     app.directive('pageHeader', function () {

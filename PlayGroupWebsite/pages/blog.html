@@ -1,16 +1,48 @@
-﻿<div class="row">
-    <div class="box">
-        <div class="col-lg-12">
-            <hr>
-            <h2 class="intro-text text-center">
-                Playgroup
-                <strong>blog</strong>
-            </h2>
-            <hr>
+﻿    <div class="box fill container-fluid">
+        <div class="row fill">
+            <div class="fill">
+                <!--            <hr>
+                        <h2 class="intro-text text-center">
+                            Playgroup
+                            <strong>blog</strong>
+                        </h2>
+                        <hr>-->
+                <iframe width="100%" id="iframeBlog" src="https://eastcraigsplaygroup.tumblr.com/"></iframe>
+            </div>
         </div>
-    </div>
 </div>
 
+<div ng-init="initialize()"></div>
+
+<script type="text/javascript">
+    $(window).resize(function () {
+        function windowDimensions() { // prototype/jQuery compatible
+            var myWidth = 0, myHeight = 0;
+            if (typeof (window.innerWidth) == 'number') {
+                //Non-IE or IE 9+ non-quirks
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            } else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                //IE 6+ in 'standards compliant mode'
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                //IE 5- (lol) compatible
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+            if (myWidth < 1) myWidth = screen.width; // emergency fallback to prevent division by zero
+            if (myHeight < 1) myHeight = screen.height;
+            return [myWidth, myHeight];
+        }
+        var dim = windowDimensions();
+        myIframe = $('#iframeBlog'); // changed the code to use jQuery
+        myIframe.height((dim[1] - $('#navRow').height() - 150) + "px");
+    });
+
+    $(window).trigger('resize');
+</script>
+<!--
 <div data-ng-repeat="blog in blogCtrl.blogData | orderBy:'-date'">
     <div class="row" data-ng-show="blogCtrl.blogIsVisible({{$index}})">
         <div class="box">
@@ -41,3 +73,4 @@
         </li>
     </ul>
 </div>
+-->
